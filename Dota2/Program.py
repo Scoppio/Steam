@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-from coleta import info_partidas
+from infos_partidas import infos_partidas
 import time
 
 #### CHAVE DA STEAM PARA ACESSO ####
