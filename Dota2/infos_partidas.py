@@ -47,15 +47,19 @@ class infos_partidas():
         try:
             partidas = api.get_match_history(skill=self.skill, game_mode=self.game_mode, min_players=10)
             self.ids = [i["match_id"] for i in partidas["result"]["matches"] ]
-        except requests.HTTPError as erro:
+
+        except requests.RequestException as erro:
+            print(erro)
             pass
+
         return None
 
     #### COLETA TODAS INFORMAÇÕES DE UMA UNICA PARTIDA ####
     def info_partida(self,num):
         try:
             match = api.get_match_details(num)["result"]
-        except requests.HTTPError as erro:
+
+        except requests.RequestException as erro:
             print("\n *********************************\n")
             print(erro)
             print("\n Problema na coleta desta partida... O procedimento continua.")

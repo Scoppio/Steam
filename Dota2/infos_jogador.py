@@ -15,14 +15,15 @@ class infos_jogador():
         self.ids = []
 
     def busca_ids(self):
+        ids=[]
         try:
             if len(self.ids) < 1:
                 partidas = api.get_match_history(game_mode=self.game_mode, account_id=self.account_id, min_players=10 )
                 ids = [i["match_id"] for i in partidas["result"]["matches"] ]
             else:
                 partidas = api.get_match_history(game_mode=self.game_mode, account_id=self.account_id, min_players=10, start_at_match_id=min(self.ids) )
-                ids += [i["match_id"] for i in partidas["result"]["matches"] ]
+                ids += [i["match_id"] for i in partidas["result"]["matches"]]
         except requests.HTTPError as erro:
             print(erro)
-            pass
         return ids
+
