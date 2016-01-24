@@ -17,7 +17,7 @@ class infos_partidas():
         self.game_mode = game_mode
         self.skill = skill
         self.cria_herois()
-        self.faz_columns()
+        self.colunas = self.faz_todas_colunas()
         self.dados = pd.DataFrame()
 
     #### FUNCAO QUE BUSCA OS HEROIS ####
@@ -28,19 +28,29 @@ class infos_partidas():
         return None
 
      #### CRIA AS COLUNAS DESEJADAS PARA BASE DE DADOS ####
-    def faz_columns(self):
-        self.colunas_match = ["id", "radiant_win", "tempo", "modo_jogo"]
-        self.colunas_RH = []
-        self.colunas_DH = []
-        self.colunas_info = []
-        for h in self.herois.id:
-            self.colunas_RH.append( "RH_" + str(h) )
-            self.colunas_DH.append( "DH_" + str(h) )
-            for i in self.info_heroi:
-                self.colunas_info.append( "RH_" + str(h) + "_" + i)
-                self.colunas_info.append( "DH_" + str(h) + "_" + i)
-        self.colunas = self.colunas_match + self.colunas_DH + self.colunas_RH + self.colunas_info
-        return None
+    def faz_colunas_partida(self):
+        return ["id", "radiant_win", "tempo", "modo_jogo"]
+
+    def faz_colunas_time(self, time="RH"):
+        colunas = [time + "_" + str(i) for i in self.herois.id]
+        return colunas
+
+    def faz_colunas_herois(self):
+        self.colunas_RH = self.faz_colunas_time("RH")
+        self.colunas_DH = self.faz_colunas_time("DH")
+        colunas = self.colunas_RH + self.colunas_DH
+        return colunas
+
+    def faz_colunas_infos(self, colunas):
+        colunas_infos = []
+        for j in self.info_heroi:
+            colunas_infos += [i + "_" + j for i in colunas]
+        return colunas_infos
+
+    def faz_todas_colunas(self):
+        col_herois = self.faz_colunas_herois()
+        colunas = self.faz_colunas_partida() + col_herois + self.faz_colunas_infos(col_herois)
+        return colunas
 
     #### FUNCAO PARA BUSCAR AS ULTIMAS 100 PARTIDAS ####
     def pega_ids(self):
