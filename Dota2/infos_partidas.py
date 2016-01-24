@@ -28,7 +28,7 @@ class infos_partidas():
 
      #### CRIA AS COLUNAS DESEJADAS PARA BASE DE DADOS ####
     def faz_colunas_partida(self):
-        return ["id", "radiant_win", "tempo", "modo_jogo"]
+        return ["id", "radiant_win", "tempo", "modo_jogo", "data_inicio"]
 
     def faz_colunas_time(self, time="RH"):
         colunas = [time + "_" + str(i) for i in self.herois.id]
@@ -75,7 +75,8 @@ class infos_partidas():
         info = {"id":[match["match_id"]],
                 "radiant_win":[match["radiant_win"]],
                 "tempo":[ match["duration"]/60 ],
-                "modo_jogo":[match["game_mode"]]}
+                "modo_jogo":[match["game_mode"]],
+                "data_inicio":[match["start_time"]]}
         leaver = 0
 
         for p in match["players"]:
@@ -99,7 +100,7 @@ class infos_partidas():
 
     #### ARRUMA OS DADOS CAPTURADOS REALIZANDO LIMPEZA NECESSÁRIA ####
     def arruma_dados(self, dados):
-        print(" Arrumandos o dados coletados...")
+        print("\n Arrumandos o dados coletados...")
 
         ## TIRA PARTIDAS INCONSISTENTES ##
         dados_columns = dados.keys()
@@ -115,6 +116,8 @@ class infos_partidas():
 
         ## REMOVE PARTIDAS COM POUCA DURAÇÃO ##
         dados = dados[ dados["tempo"]>=15 ]
+
+        print("\n Processo de arrumar os dados finalizado...")
 
         return dados
 
@@ -169,5 +172,5 @@ class infos_partidas():
                 funcoes.dormindo(tempo, i)
                 i+=1
 
-        print("\n Foram realizadas "+str(i) + " coletas de dados.")
+        print("\n Foram realizadas "+ str(i) + " coletas de dados.")
         return None
