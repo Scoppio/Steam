@@ -117,7 +117,7 @@ class infos_partidas():
         ## REMOVE PARTIDAS COM POUCA DURAÇÃO ##
         dados = dados[ dados["tempo"]>=15 ]
 
-        print("\n Processo de arrumar os dados finalizado...")
+        print(" Processo de arrumar os dados finalizado...")
 
         return dados
 
@@ -149,8 +149,9 @@ class infos_partidas():
         self.dados = self.dados.append( self.faz_coleta(), ignore_index=True)
 
         if self.salva == "S":
-            print("\n Salvando os dados no arquivo " + self.endereco)
+            print("\n Salvando os dados no arquivo " + self.endereco + " ...")
             self.dados.to_csv(self.endereco)
+            print(" Processo de salvar os dados concluida!")
 
         return None
 
