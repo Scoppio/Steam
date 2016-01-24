@@ -35,9 +35,7 @@ class infos_partidas():
         return colunas
 
     def faz_colunas_herois(self):
-        self.colunas_RH = self.faz_colunas_time("RH")
-        self.colunas_DH = self.faz_colunas_time("DH")
-        colunas = self.colunas_RH + self.colunas_DH
+        colunas = self.faz_colunas_time("RH") + self.faz_colunas_time("DH")
         return colunas
 
     def faz_colunas_infos(self, colunas):
@@ -47,8 +45,8 @@ class infos_partidas():
         return colunas_infos
 
     def faz_todas_colunas(self):
-        col_herois = self.faz_colunas_herois()
-        colunas = self.faz_colunas_partida() + col_herois + self.faz_colunas_infos(col_herois)
+        self.colunas_herois = self.faz_colunas_herois()
+        colunas = self.faz_colunas_partida() + self.colunas_herois + self.faz_colunas_infos(self.colunas_herois)
         return colunas
 
     #### FUNCAO PARA BUSCAR AS ULTIMAS 100 PARTIDAS ####
@@ -101,11 +99,7 @@ class infos_partidas():
 
     #### ARRUMA OS DADOS CAPTURADOS REALIZANDO LIMPEZA NECESSÁRIA ####
     def arruma_dados(self, dados):
-
         print(" Arrumandos o dados coletados...")
-
-        ## TIRA DUPLICATAS ##
-        dados = dados.drop_duplicates()
 
         ## TIRA PARTIDAS INCONSISTENTES ##
         dados_columns = dados.keys()
@@ -117,7 +111,7 @@ class infos_partidas():
         dados = dados[self.colunas]
 
         ## SUBSTIRUI NA`s ##
-        dados[self.colunas_DH + self.colunas_RH] = dados[self.colunas_DH + self.colunas_RH].fillna(0)
+        dados[self.colunas_herois] = dados[self.colunas_herois].fillna(0)
 
         ## REMOVE PARTIDAS COM POUCA DURAÇÃO ##
         dados = dados[ dados["tempo"]>=15 ]
@@ -137,9 +131,9 @@ class infos_partidas():
 
     ### FUNCAO PARA SALVAR OS DADOS ###
     def salvamento(self):
-        self.salva = input(" Deseja salvar os dados a cada iteração? [S/n] ")
+        self.salva = input(" Deseja salvar os dados a cada iteração? [S/n] ").upper()
 
-        if self.salva.upper() == "S":
+        if self.salva == "S":
            self.endereco = input(" Entre com o endereço do arquivo: ")
 
            if self.endereco[-3:] != "csv":
@@ -149,8 +143,10 @@ class infos_partidas():
     ### PROCEDIMENTOS DURANTE A COLETA RECURSIVA ###
     def coletando(self, tempo, i):
         print("\n "+ str(i)+"a coleta iniciada.")
-        self.dados = self.dados.append( self.faz_coleta(), ignore_index=True).drop_duplicates()
+        self.dados = self.dados.append( self.faz_coleta(), ignore_index=True)
+
         if self.salva == "S":
+            print("\n Salvando os dados no arquivo " + self.endereco)
             self.dados.to_csv(self.endereco)
 
         return None
