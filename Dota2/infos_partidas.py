@@ -16,16 +16,15 @@ class infos_partidas():
         self.info_heroi = info_heroi
         self.game_mode = game_mode
         self.skill = skill
-        self.cria_herois()
+        self.herois = self.tabela_herois()
         self.colunas = self.faz_todas_colunas()
         self.dados = pd.DataFrame()
 
     #### FUNCAO QUE BUSCA OS HEROIS ####
-    def cria_herois(self):
+    def tabela_herois(self):
         herois = pd.DataFrame.from_dict(api.get_heroes()["result"]["heroes"])
         herois.columns = ["id","heroi", "nome" ]
-        self.herois = herois
-        return None
+        return herois
 
      #### CRIA AS COLUNAS DESEJADAS PARA BASE DE DADOS ####
     def faz_colunas_partida(self):
@@ -56,13 +55,12 @@ class infos_partidas():
     def pega_ids(self):
         try:
             partidas = api.get_match_history(skill=self.skill, game_mode=self.game_mode, min_players=10)
-            self.ids = [i["match_id"] for i in partidas["result"]["matches"] ]
+            ids = [i["match_id"] for i in partidas["result"]["matches"] ]
+            return ids
 
         except requests.RequestException as erro:
             print(erro)
-            pass
-
-        return None
+            return None
 
     #### COLETA TODAS INFORMAÇÕES DE UMA UNICA PARTIDA ####
     def info_partida(self,num):
@@ -116,22 +114,22 @@ class infos_partidas():
             if f in dados_columns:
                 dados = dados[ dados[f]!= 1 ]
                 del dados[f]
-                for i in self.info_heroi:
-                    del dados[f+"_"+i]
+        dados = dados[self.colunas]
 
         ## SUBSTIRUI NA`s ##
         dados[self.colunas_DH + self.colunas_RH] = dados[self.colunas_DH + self.colunas_RH].fillna(0)
 
         ## REMOVE PARTIDAS COM POUCA DURAÇÃO ##
         dados = dados[ dados["tempo"]>=15 ]
+
         return dados
 
     #### ESTRUTURA TODAS INFORMAÇÕES DAS PARTIDAS COLETADAS ####
     def faz_coleta(self):
-        self.pega_ids()
+        ids =  self.pega_ids()
         dados = pd.DataFrame(columns=self.colunas)
 
-        for i in tqdm(self.ids):
+        for i in tqdm(ids):
             dados = dados.append( self.info_partida(i), ignore_index=True)
 
         dados = self.arruma_dados(dados)
@@ -141,7 +139,7 @@ class infos_partidas():
     def salvamento(self):
         self.salva = input(" Deseja salvar os dados a cada iteração? [S/n] ")
 
-        if self.salva == "S":
+        if self.salva.upper() == "S":
            self.endereco = input(" Entre com o endereço do arquivo: ")
 
            if self.endereco[-3:] != "csv":
