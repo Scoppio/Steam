@@ -58,7 +58,7 @@ class infos_partidas():
 
         except requests.RequestException as erro:
             print(erro)
-            return None
+            return []
 
     #### COLETA TODAS INFORMAÇÕES DE UMA UNICA PARTIDA ####
     def info_partida(self,num):
@@ -123,7 +123,10 @@ class infos_partidas():
 
     #### ESTRUTURA TODAS INFORMAÇÕES DAS PARTIDAS COLETADAS ####
     def faz_coleta(self):
-        ids =  self.pega_ids()
+        ids = []
+        while len(ids)<=1:
+            ids =  self.pega_ids()
+        
         dados = pd.DataFrame(columns=self.colunas)
 
         for i in tqdm(ids):
