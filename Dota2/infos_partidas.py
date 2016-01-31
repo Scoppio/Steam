@@ -50,20 +50,28 @@ class infos_partidas():
         return colunas
 
     #### FUNCAO PARA BUSCAR AS ULTIMAS 100 PARTIDAS ####
-    def pega_ids(self):
-        try:
-            partidas = api.get_match_history(skill=self.skill, game_mode=self.game_mode, min_players=10)
-            ids = [i["match_id"] for i in partidas["result"]["matches"] ]
-            return ids
+    def pega_ids(self, hist=False):
 
-        except requests.RequestException as erro:
-            print(erro)
-            return []
+        ids = []
+
+        while len(ids)<=1:
+
+            try:
+                if not hist:
+                    partidas = api.get_match_history(skill=self.skill, game_mode=self.game_mode, min_players=10)
+                else:
+                    partidas = api.get_match_history(skill=self.skill, game_mode=self.game_mode, min_players=10, start_at_match_id=hist )
+                ids = [i["match_id"] for i in partidas["result"]["matches"] ]
+
+            except requests.RequestException as erro:
+                print(erro)
+
+        return ids
 
     #### COLETA TODAS INFORMAÇÕES DE UMA UNICA PARTIDA ####
-    def info_partida(self,num):
+    def info_partida(self,id):
         try:
-            match = api.get_match_details(num)["result"]
+            match = api.get_match_details(id)["result"]
 
         except requests.RequestException as erro:
             print("\n *********************************\n")
@@ -122,11 +130,8 @@ class infos_partidas():
         return dados
 
     #### ESTRUTURA TODAS INFORMAÇÕES DAS PARTIDAS COLETADAS ####
-    def faz_coleta(self):
-        ids = []
-        while len(ids)<=1:
-            ids =  self.pega_ids()
-        
+    def faz_coleta(self, ids):
+
         dados = pd.DataFrame(columns=self.colunas)
 
         for i in tqdm(ids):
@@ -149,7 +154,8 @@ class infos_partidas():
     ### PROCEDIMENTOS DURANTE A COLETA RECURSIVA ###
     def coletando(self, tempo, i):
         print("\n "+ str(i)+"a coleta iniciada.")
-        self.dados = self.dados.append( self.faz_coleta(), ignore_index=True)
+        ids = self.pega_ids()
+        self.dados = self.dados.append( self.faz_coleta(ids), ignore_index=True)
 
         if self.salva == "S":
             print("\n Salvando os dados no arquivo " + self.endereco + " ...")
