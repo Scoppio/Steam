@@ -35,7 +35,9 @@ def coleta_recursiva(chave, endereco = False, tempo=0, nlinhas=10000):
 #### CHAVE DA STEAM PARA ACESSO ####
 chave = input(" Entre com a chave do desenvolvedor: ")
 tempo = int(input("\n Defina um intervalo de tempo para coleta (em segundos): "))
+nlinhas = int(input("\n Entre com o número maximo de linahs: "))
 salvar = input("\n Deseja salvar a base de dados?[S/n]: ").upper()
+
 
 endereco=False
 if salvar == "S":
@@ -43,7 +45,7 @@ if salvar == "S":
     if "csv" not in endereco:
         endereco= endereco + ".csv"
 
-coleta_recursiva(chave = chave, endereco = endereco, tempo = tempo, nlinhas=100)
+coleta_recursiva(chave = chave, endereco = endereco, tempo = tempo, nlinhas=nlinhas)
 
 
 
