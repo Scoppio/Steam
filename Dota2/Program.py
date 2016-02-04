@@ -23,7 +23,7 @@ def coleta_recursiva(chave, endereco = False, tempo=0, nlinhas=10000):
         print("Os dados estão sendo salvos no arquivo:" + end_salvar)
         dados.to_csv(end_salvar)
 
-        if dados.shape[0] > nlinhas:
+        if dados.shape[0] >= nlinhas:
             del dados
             dados = pd.DataFrame(columns=minha_coleta.colunas)
             j+=1
