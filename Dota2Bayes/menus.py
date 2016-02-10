@@ -97,4 +97,7 @@ def coleta_time(base_herois,time):
 
 def coleta_times():
 	herois_radiant = coleta_time("RADIANT")
+	system("clear")
 	herois_dire = coleta_time("DIRE")
+	herois = {"radiant":herois_radiant, "dire":herois_dire}
+	return herois
