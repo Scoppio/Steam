@@ -8,8 +8,8 @@
 6,7,Earthshaker,npc_dota_hero_earthshaker
 7,8,Juggernaut,npc_dota_hero_juggernaut
 8,9,Mirana,npc_dota_hero_mirana
-9,11,Shadow Fiend,npc_dota_hero_nevermore
-10,10,Morphling,npc_dota_hero_morphling
+9,10,Morphling,npc_dota_hero_morphling
+10,11,Shadow Fiend,npc_dota_hero_nevermore
 11,12,Phantom Lancer,npc_dota_hero_phantom_lancer
 12,13,Puck,npc_dota_hero_puck
 13,14,Pudge,npc_dota_hero_pudge
@@ -23,12 +23,12 @@
 21,22,Zeus,npc_dota_hero_zuus
 22,23,Kunkka,npc_dota_hero_kunkka
 23,25,Lina,npc_dota_hero_lina
-24,31,Lich,npc_dota_hero_lich
-25,26,Lion,npc_dota_hero_lion
-26,27,Shadow Shaman,npc_dota_hero_shadow_shaman
-27,28,Slardar,npc_dota_hero_slardar
-28,29,Tidehunter,npc_dota_hero_tidehunter
-29,30,Witch Doctor,npc_dota_hero_witch_doctor
+24,26,Lion,npc_dota_hero_lion
+25,27,Shadow Shaman,npc_dota_hero_shadow_shaman
+26,28,Slardar,npc_dota_hero_slardar
+27,29,Tidehunter,npc_dota_hero_tidehunter
+28,30,Witch Doctor,npc_dota_hero_witch_doctor
+29,31,Lich,npc_dota_hero_lich
 30,32,Riki,npc_dota_hero_riki
 31,33,Enigma,npc_dota_hero_enigma
 32,34,Tinker,npc_dota_hero_tinker
@@ -65,8 +65,8 @@
 63,65,Batrider,npc_dota_hero_batrider
 64,66,Chen,npc_dota_hero_chen
 65,67,Spectre,npc_dota_hero_spectre
-66,69,Doom,npc_dota_hero_doom_bringer
-67,68,Ancient Apparition,npc_dota_hero_ancient_apparition
+66,68,Ancient Apparition,npc_dota_hero_ancient_apparition
+67,69,Doom,npc_dota_hero_doom_bringer
 68,70,Ursa,npc_dota_hero_ursa
 69,71,Spirit Breaker,npc_dota_hero_spirit_breaker
 70,72,Gyrocopter,npc_dota_hero_gyrocopter
@@ -102,11 +102,11 @@
 100,102,Abaddon,npc_dota_hero_abaddon
 101,103,Elder Titan,npc_dota_hero_elder_titan
 102,104,Legion Commander,npc_dota_hero_legion_commander
-103,106,Ember Spirit,npc_dota_hero_ember_spirit
-104,107,Earth Spirit,npc_dota_hero_earth_spirit
-105,109,Terrorblade,npc_dota_hero_terrorblade
-106,110,Phoenix,npc_dota_hero_phoenix
-107,111,Oracle,npc_dota_hero_oracle
-108,105,Techies,npc_dota_hero_techies
+103,105,Techies,npc_dota_hero_techies
+104,106,Ember Spirit,npc_dota_hero_ember_spirit
+105,107,Earth Spirit,npc_dota_hero_earth_spirit
+106,109,Terrorblade,npc_dota_hero_terrorblade
+107,110,Phoenix,npc_dota_hero_phoenix
+108,111,Oracle,npc_dota_hero_oracle
 109,112,Winter Wyvern,npc_dota_hero_winter_wyvern
 110,113,Arc Warden,npc_dota_hero_arc_warden
