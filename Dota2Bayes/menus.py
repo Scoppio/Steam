@@ -80,25 +80,21 @@ def mostra_time(time, herois):
 
 	return None
 
-def inicio(tamanho=60):
-
+def coleta_time(base_herois,time):
 	system("clear")
-	print("\n" + "Seja bem vindo".center(tamanho)+"\n")
-	print_dota2bayes(tamanho)
-	input("Aperte qualquer tecla para iniciar")
-	while True:
-		escolha = faz_selecao()
-		if escolha == "1":
-			base_herois(herois)
-		if escolha == "2":
-			print("Função não esta pronta!")
-			input(" Aperte qualquer tecla para retornar")
-		if escolha == "3":
-			break
+	herois = []
+	for i in range(1,6):
+		heroi = 150
+		while (not (base_herois["id"].min() <= heroi <= base_herois["id"].max())) or (heroi in herois): 
+			heroi = int(input("Entre com o " + str(i) + "o Heroi do time " + time + ": ") )
+		if heroi != '':
+			herois.append(heroi)
+		else:
+			herois.sort()
+			return herois
+	herois.sort()
+	return herois
 
-inicio()
-mostra_time("RADIANT", ["Tedoro Calvo", "Emanuel Alvares", "Lara Calvo"])
-print()
-mostra_time("DIRE", ["Natália Ataide", "Maria Carolina", "Beatriz Ataide"])
-
-
+def coleta_times():
+	herois_radiant = coleta_time("RADIANT")
+	herois_dire = coleta_time("DIRE")
