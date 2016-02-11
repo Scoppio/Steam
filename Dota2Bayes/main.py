@@ -3,19 +3,24 @@ import pandas as pd
 
 def main(tamanho=60):
 
-	herois = pd.DataFrame.from_csv("Herois.csv")
-	system("clear")
-	print("\n" + "Seja bem vindo".center(tamanho)+"\n")
-	print_dota2bayes(tamanho)
-	input("Aperte qualquer tecla para iniciar")
+	abertura(tamanho)
+
+	tabela_herois = pd.DataFrame.from_csv("Herois.csv")
+	escolha_herois = []
+	
 	while True:
-		escolha = faz_selecao()
+		escolha = escolha_menu()
 		if escolha == "1":
-			base_herois(herois)
-		if escolha == "2":
-			print(coleta_time(herois, "radiant"))
+			mostra_tabela_herois(tabela_herois)
 			input(" Aperte qualquer tecla para retornar")
+		if escolha == "2":
+			escolha_herois = coleta_times(tabela_herois)
+			print(escolha_herois)
+			input(" Aperte qualquer tecla para retornar ")
 		if escolha == "3":
+			print(nomes_herois)
+			input(" Aperte qualquer tecla para retornar ")
+		if escolha == "4":
 			break
 
 main()

@@ -22,22 +22,37 @@ def print_dota2bayes(tamanho=60):
 	print()
 	return None
 
-def mostra_selecao(tamanho = 60):
+def abertura(tamanho):
+	
+	system("clear")
+	print("\n" + "Seja bem vindo".center(tamanho)+"\n")
+	print_dota2bayes(tamanho)
+	input("Aperte qualquer tecla para iniciar ")
+
+
+def mostra_menu(tamanho = 60):
 	system("clear")
 	print()
 	print(" MENU DE OPÇÕES ".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
 	print("|     Visualizar Herois     |  1  |".center(tamanho))
 	print("|    Previsão de Partida    |  2  |".center(tamanho))
-	print("|            Sair           |  3  |".center(tamanho))
+	print("|      Verificar Herois     |  3  |".center(tamanho))
+	print("|            Sair           |  4  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
 
-def faz_selecao(tamanho = 60):
-	mostra_selecao(tamanho)
+def escolha_menu(tamanho = 60):
+	mostra_menu(tamanho)
 	escolha = input("\nEntre com o valor da opção desejada: ")
 	return escolha
 
-def todos_herois(herois):
+def linha_heroi(heroi, i_heroi):
+
+	linha = " | " + ("HEROI " + str(i_heroi) + ": ").ljust(10) + heroi.center(19) + " |"
+	linha = linha.center(len(linha))
+	return linha
+
+def linhas_herois(herois):
 	tamanho_heroi = max([len(h) for h in herois])
 	linhas = []
 	i=1
@@ -46,7 +61,7 @@ def todos_herois(herois):
 		i+=1
 	return linhas
 
-def base_herois(base_herois):
+def mostra_tabela_herois(base_herois):
 	print(" +---------------------------+")
 	print(" | " + "ID".center(3) + " | " + "HEROI".center(19) + " |")
 	print(" +---------------------------+")
@@ -55,18 +70,11 @@ def base_herois(base_herois):
 		print(" | " + str(herois.loc[h]["id"]).rjust(3) + " | " + str(herois.loc[h]["heroi"]).center(19) + " |" )
 	
 	print(" +---------------------------+")
-	input(" Aperte qualquer tecla para retornar")
-
-def linha_heroi(heroi, i_heroi):
-
-	linha = " | " + ("HEROI " + str(i_heroi) + ": ").ljust(10) + heroi.center(19) + " |"
-	linha = linha.center(len(linha))
-	return linha
 
 def mostra_time(time, herois):
 	
-	linhas_herois = todos_herois(herois)
-	tamanho = len( linhas_herois[0] )
+	linhas = linhas_herois(herois)
+	tamanho = len( linhas[0] )
 
 	if time.lower() == "radiant":
 		print(colored( "RADIANT".center(tamanho), "green"))
@@ -80,24 +88,27 @@ def mostra_time(time, herois):
 
 	return None
 
-def coleta_time(base_herois,time):
-	system("clear")
+def coleta_time(tabela_herois,time):
+
+	cor = "green" if time.lower()=="radiant" else "red"
+
 	herois = []
 	for i in range(1,6):
 		heroi = 150
-		while (not (base_herois["id"].min() <= heroi <= base_herois["id"].max())) or (heroi in herois): 
-			heroi = int(input("Entre com o " + str(i) + "o Heroi do time " + time + ": ") )
-		if heroi != '':
-			herois.append(heroi)
-		else:
-			herois.sort()
-			return herois
+		while (not (tabela_herois["id"].min() <= heroi <= tabela_herois["id"].max())) or (heroi in herois): 
+			heroi = input(colored( "Entre com o " + str(i) + "o Heroi do time " + time + ": " , cor ) )
+			if heroi == '':
+				herois.sort()
+				return herois
+			heroi = int(heroi)
+		herois.append( heroi )
 	herois.sort()
 	return herois
 
-def coleta_times():
-	herois_radiant = coleta_time("RADIANT")
+def coleta_times(tabela_herois):
 	system("clear")
-	herois_dire = coleta_time("DIRE")
+	herois_radiant = coleta_time(tabela_herois, "RADIANT")
+	print()
+	herois_dire = coleta_time(tabela_herois, "DIRE")
 	herois = {"radiant":herois_radiant, "dire":herois_dire}
 	return herois
