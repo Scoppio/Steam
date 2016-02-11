@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 from os import system
 from termcolor import colored
 import pandas as pd
@@ -57,13 +59,7 @@ def linha_heroi(heroi, i_heroi):
 
 def linhas_herois(herois):
 	
-	tamanho_heroi = max([len(h) for h in herois])
-	linhas = []
-	i=1
-	for h in herois:
-		linhas.append( linha_heroi(h, i) )
-		i+=1
-	
+	linhas = [ linha_heroi(h, i+i) for i,h in enumerate(herois) ]	
 	return linhas
 
 def mostra_tabela_herois(base_herois):
@@ -109,7 +105,6 @@ def coleta_time(tabela_herois,time):
 			heroi = int(heroi)
 		herois.append( heroi )
 	herois.sort()
-	
 	return herois
 
 def coleta_times(tabela_herois):
@@ -119,5 +114,4 @@ def coleta_times(tabela_herois):
 	print()
 	herois_dire = coleta_time(tabela_herois, "DIRE")
 	herois = {"radiant":herois_radiant, "dire":herois_dire}
-	
 	return herois

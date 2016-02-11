@@ -1,3 +1,5 @@
+#-*- coding: utf-8 -*-
+
 from menus import *
 import pandas as pd
 
