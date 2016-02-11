@@ -29,16 +29,18 @@ def abertura(tamanho):
 	print_dota2bayes(tamanho)
 	input("Aperte qualquer tecla para iniciar ")
 
-
 def mostra_menu(tamanho = 60):
 	system("clear")
 	print()
 	print(" MENU DE OPÇÕES ".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
-	print("|     Visualizar Herois     |  1  |".center(tamanho))
-	print("|    Previsão de Partida    |  2  |".center(tamanho))
-	print("|      Verificar Herois     |  3  |".center(tamanho))
-	print("|            Sair           |  4  |".center(tamanho))
+	print("|     VISUALIZAR HEROIS     |  1  |".center(tamanho))
+	print("+---------------------------+-----+".center(tamanho))
+	print("|    PREVISÃO DE PARTIDAS   |  2  |".center(tamanho))
+	print("+---------------------------+-----+".center(tamanho))
+	print("|      VERIFICAR HEROIS     |  3  |".center(tamanho))
+	print("+---------------------------+-----+".center(tamanho))
+	print("|            SAIR           |  4  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
 
 def escolha_menu(tamanho = 60):

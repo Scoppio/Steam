@@ -12,14 +12,14 @@ def main(tamanho=60):
 		escolha = escolha_menu()
 		if escolha == "1":
 			mostra_tabela_herois(tabela_herois)
-			input(" Aperte qualquer tecla para retornar")
+			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "2":
 			escolha_herois = coleta_times(tabela_herois)
 			print(escolha_herois)
-			input(" Aperte qualquer tecla para retornar ")
+			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "3":
 			print(nomes_herois)
-			input(" Aperte qualquer tecla para retornar ")
+			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "4":
 			break
 
