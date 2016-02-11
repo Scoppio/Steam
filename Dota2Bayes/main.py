@@ -24,8 +24,5 @@ def main(tamanho=60):
 			break
 
 main()
-mostra_time("RADIANT", ["Tedoro Calvo", "Emanuel Alvares", "Lara Calvo"])
-print()
-mostra_time("DIRE", ["Natália Ataide", "Maria Carolina", "Beatriz Ataide"])
 
 
