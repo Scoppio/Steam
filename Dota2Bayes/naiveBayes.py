@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-import scipy.stats as ss
+from scipy.stats import norm
+from scipy.stats import bernoulli
 
 class naiveBayes():
 
@@ -25,9 +26,25 @@ class naiveBayes():
 		
 		return estimativa
 
-	def distr_bernnouli(self, colunas, resposta):
+	def NBB(self, colunas, resposta):
 
-		estimacao_bernnouli = estimar(colunas, resposta)
+		estimativa = estimar(colunas, resposta)
+
+		distribuicao_geral = { i: bernoulli( estimativa["medias"][i]["geral"] ) for i in colunas }
+		distribuicao_1 = { i: bernoulli( estimativa["medias"][i][1] ) for i in colunas }
+		distribuicao_0 = { i: bernoulli( estimativa["medias"][i][0] ) for i in colunas }
+
+		ajuste = { "geral": distribuicao_geral , 1: distribuicao_1, 0:distribuicao_0 }
+
+		return ajuste
+
+	def NBN(self, colunas, resposta):
+
+		estimativa = estimar(colunas, resposta)
+
+
+
+		return 
 
 	def predicao(self, novo_dado):
 
@@ -38,4 +55,3 @@ path = "/home/teo/Documentos/Meus Documentos/Steam/DADOS_RASPI/dados_dota/dota_r
 dados = pd.DataFrame.from_csv(path)
 
 NB = naiveBayes(dados, colunas=["RH_1" , "DH_1"], resposta="radiant_win")
-print(NB.estimar()["medias"])

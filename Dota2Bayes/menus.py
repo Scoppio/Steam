@@ -4,8 +4,6 @@ from os import system
 from termcolor import colored
 import pandas as pd
 
-herois = pd.DataFrame.from_csv("Herois.csv")
-
 def print_dota2bayes(tamanho=60):
 
 	print("#######    ########   ########     ####      #####  ".center(tamanho))
