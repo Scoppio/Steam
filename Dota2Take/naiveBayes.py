@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from scipy.stats import norm
+from scipy.stats import bernoulli
 import math
 
 class naiveBayes():
@@ -8,14 +10,16 @@ class naiveBayes():
 		print("None")
 
 
-	def fdpBernoulli(self, x ,p):
+	def fdp_bernoulli(self, x ,p):
 
 		fdp = ( p**x ) *( (1-p) ** (1-x) )
+
 		return fdp
 
-	def fdpNormal(self, x, media, variancia):
+	def fdp_normal(self, x, media, variancia):
 
 		fdp = ( 1 / math.sqrt( 2 * math.pi * variancia ) ) * ( math.e ** ( (-1/2) * ( (x - media) ** 2 ) / variancia 	) )
+		
 		return fdp
 
 	def estimar_media(self, colunas, resposta):
@@ -36,15 +40,29 @@ class naiveBayes():
 		estimativa.index = ["geral", 0, 1]
 		return estimativa
 
-	def ajuste(self, dados, X_B, X_N, Y):
+	def ajuste(self, dados, X, Y):
 
-		medias = estimar_media( dados[X_B + X_N] )
-		variancias = estimar_variancia( dados[ X_N ] )
-
-		self.parametros = { "Media":medias  , "Variancia": variancias}
 		return None
 
-	def predicao(self, X_B , X_N):
+	def NBB(self, colunas, resposta):
+
+		estimativa = estimar(colunas, resposta)
+
+		distribuicao_geral = { i: bernoulli( estimativa["medias"][i]["geral"] ) for i in colunas }
+		distribuicao_1 = { i: bernoulli( estimativa["medias"][i][1] ) for i in colunas }
+		distribuicao_0 = { i: bernoulli( estimativa["medias"][i][0] ) for i in colunas }
+
+		ajuste = { "geral": distribuicao_geral , 1: distribuicao_1, 0:distribuicao_0 }
+
+		return ajuste
+
+	def NBN(self, colunas, resposta):
+
+		estimativa = estimar(colunas, resposta)
+
+		return None
+
+	def predicao(self, novo_dado):
 
 		return None
 
