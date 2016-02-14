@@ -27,12 +27,12 @@ class naiveBayes():
 		estimativa.index = ["geral", 0, 1]
 		return estimativa
 
-	def estimar_variancia( self, colunas, resposta):
+	def estimar_variancia( self, X, Y):
 
 		estimativa = pd.DataFrame(columns = colunas)
-		estimativa = estimativaa.ppend(dados[colunas].var(), ignore_index=True)
-		estimativa = estimativa.append(dados[colunas][dados[resposta]==1].var(), ignore_index=True)
-		estimativa = estimativa.append(dados[colunas][dados[resposta]==0].var(), ignore_index=True)
+		estimativa = estimativaa.ppend(X.var(), ignore_index=True)
+		estimativa = estimativa.append(X[Y==1].var(), ignore_index=True)
+		estimativa = estimativa.append(X[Y==0].var(), ignore_index=True)
 		estimativa.index = ["geral", 0, 1]
 		return estimativa
 
