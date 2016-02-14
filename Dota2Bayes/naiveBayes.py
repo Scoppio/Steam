@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from scipy.stats import norm
 from scipy.stats import bernoulli
+import math
 
 class naiveBayes():
 
@@ -10,7 +11,19 @@ class naiveBayes():
 		self.colunas = colunas
 		self.resposta = resposta
 
-	def estimar(self, colunas, resposta):
+	def fdp_bernoulli(x ,p):
+
+		fdp = ( p**x ) *( (1-p) ** (1-x) )
+
+		return fdp
+
+	def fdp_normal(x, media, variancia):
+
+		fdp = ( 1 / math.sqrt( 2 * math.pi * variancia ) ) * ( math.e ** ( (-1/2) * ( (x - media) ** 2 ) / variancia 	) )
+		
+		return fdp
+
+	def estimar_media(self, colunas, resposta):
 
 		estimativa = {"medias":pd.DataFrame(columns = self.colunas) , "variancia" :pd.DataFrame(columns = self.colunas) }
 
@@ -18,6 +31,10 @@ class naiveBayes():
 		estimativa["medias"] = estimativa["medias"].append(dados[self.colunas][dados[self.resposta]==1].mean(), ignore_index=True)
 		estimativa["medias"] = estimativa["medias"].append(dados[self.colunas][dados[self.resposta]==0].mean(), ignore_index=True)
 		estimativa["medias"].index = ["geral", 0, 1]
+	 
+	 	return estimativa
+
+	 def estimar_variancia( self, colunas, resposta):
 
 		estimativa["variancia"] = estimativa["variancia"].append(dados[self.colunas].var(), ignore_index=True)
 		estimativa["variancia"] = estimativa["variancia"].append(dados[self.colunas][dados[self.resposta]==1].var(), ignore_index=True)
@@ -41,8 +58,6 @@ class naiveBayes():
 	def NBN(self, colunas, resposta):
 
 		estimativa = estimar(colunas, resposta)
-
-
 
 		return 
 
