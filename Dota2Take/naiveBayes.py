@@ -18,12 +18,12 @@ class naiveBayes():
 		fdp = ( 1 / math.sqrt( 2 * math.pi * variancia ) ) * ( math.e ** ( (-1/2) * ( (x - media) ** 2 ) / variancia 	) )
 		return fdp
 
-	def estimar_media(self, colunas, resposta):
+	def estimar_media(self, X, Y):
 
 		estimativa = pd.DataFrame(columns = colunas)
-		estimativa = estimativa.append(dados[colunas].mean(), ignore_index=True)
-		estimativa = estimativa.append(dados[colunas][dados[resposta]==1].mean(), ignore_index=True)
-		estimativa = estimativa.append(dados[colunas][dados[resposta]==0].mean(), ignore_index=True)
+		estimativa = estimativa.append(X.mean(), ignore_index=True)
+		estimativa = estimativa.append(X[Y==1].mean(), ignore_index=True)
+		estimativa = estimativa.append(X[Y==0].mean(), ignore_index=True)
 		estimativa.index = ["geral", 0, 1]
 		return estimativa
 
