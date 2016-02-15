@@ -71,7 +71,25 @@ class infos_partidas():
     #### COLETA TODAS INFORMAÇÕES DE UMA UNICA PARTIDA ####
     def info_partida(self,id):
         try:
-            match = api.get_match_details(id)["result"]
+            match = api.get_match_details(id)
+
+            if "result" not in match.keys():
+                return pd.DataFrame()
+            
+            match = match["result"]
+            if "match_id" not in match.keys():
+                return pd.DataFrame()
+            if "human_players" not in match.keys():
+                return pd.DataFrame()
+            if int(match["human_players"]) < 10:
+                return pd.DataFrame()
+            if "radiant_win" not in match.keys():
+                return pd.DataFrame()
+            if "duration" not in match.keys():
+                return pd.DataFrame()
+            if "game_mode" not in match.keys():
+                return pd.DataFrame()
+
 
         except requests.RequestException as erro:
             print("\n *********************************\n")
