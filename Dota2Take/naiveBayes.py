@@ -7,7 +7,6 @@ class naiveBayes():
 	def __init__(self):
 		print("None")
 
-
 	def fdpBernoulli(self, x ,p):
 
 		fdp = ( p**x ) *( (1-p) ** (1-x) )
@@ -47,13 +46,3 @@ class naiveBayes():
 	def predicao(self, X_B , X_N):
 
 		return None
-
-
-### EXEMPLO ###
-'''
-path = "/home/teo/Documentos/Meus Documentos/Steam/DADOS_RASPI/dados_dota/dota_raspi12.csv"
-
-dados = pd.DataFrame.from_csv(path)
-
-NB = naiveBayes(dados, colunas=["RH_1" , "DH_1"], resposta="radiant_win")
-'''
