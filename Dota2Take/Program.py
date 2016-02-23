@@ -47,6 +47,3 @@ if salvar == "S":
         endereco= endereco + ".csv"
 
 coleta_recursiva(chave = chave, endereco = endereco, tempo = tempo, nlinhas=nlinhas)
-
-
-
