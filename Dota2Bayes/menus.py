@@ -38,7 +38,9 @@ def mostra_menu(tamanho = 60):
 	print("+---------------------------+-----+".center(tamanho))
 	print("|       AJUSTAR MODELO      |  1  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
-	print("|    PREVISÃO DE PARTIDAS   |  2  |".center(tamanho))
+	print("|     SELECIONAR HEROIS     |  2  |".center(tamanho))
+	print("+---------------------------+-----+".center(tamanho))
+	print("|          PREDIÇÃO         |  3  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
 	print("|            SAIR           |  4  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
@@ -76,14 +78,46 @@ def faz_colunas_herois():
 
 def ajusta_modelo():
 
+	system("clear")
 	dados = importa_base()
 	colunas_herois = faz_colunas_herois()
 	modelo = BernoulliNB()
+	print("\n Fazendo ajuste do modelo...")
 	modelo.fit( dados[colunas_herois], dados["radiant_win"])
 	estimativa = modelo.predict( dados[colunas_herois] )
-	print(" O modelo está ajusatado.\n"+
-	 " O mo possui uma taxa de " + str( 100 * sum(estimativa == dados["radiant_win"]) / dados.shape[0]  ), "porcento de acerto.")
+	taxa = round( 100 * sum(estimativa == dados["radiant_win"]) / dados.shape[0] , 2)
+	print("\n O modelo está ajustado.\n O modelo possui uma taxa de " + str(taxa) + " porcento de acerto.\n\n")
+
 	return modelo
+
+def faz_predicao(times, modelo):
+	
+	colunas = {}
+	for time in times:
+		for heroi in times[time]:
+			
+			if time == "radiant":
+				colunas["RH_"+ str(HEROIS['id'][HEROIS["heroi"]==heroi].values[0]) ] = [1]
+			
+			else:
+				colunas["DH_"+ str(HEROIS['id'][HEROIS["heroi"]==heroi].values[0]) ] = [1]
+
+	partida = pd.DataFrame( columns = faz_colunas_herois() )
+	partida = partida.append( pd.DataFrame( colunas ) )
+	partida = partida.fillna(0)
+
+	predicao = modelo.predict(partida)[0]
+
+	if predicao:
+		proba = round( 100 * modelo.predict_proba( partida )[0][1] , 2)
+		print(colored(" Vitória do time RADIANT com " + str(proba) + " de chance de vitória", "green") )
+	else:
+		proba = round( 100 * modelo.predict_proba( partida )[0][0] , 2)
+		print(colored(" Vitória do time DIRE com " + str(proba) + "%" + " de chance de vitória", "red") )
+
+	print(predicao)
+	return None
+
 
 def mostra_time(time, herois):
 	
@@ -133,10 +167,9 @@ def coleta_times():
 	herois_radiant = coleta_time("RADIANT")
 	print()
 	herois_dire = coleta_time("DIRE")
-
-
 	times = {"radiant":herois_radiant, "dire":herois_dire}
 	mostra_times( times )
+
 	return times
 
 ###########################################################################

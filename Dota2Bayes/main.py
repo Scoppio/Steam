@@ -10,13 +10,14 @@ def main(tamanho=60):
 	while True:
 		escolha = escolha_menu()
 		if escolha == "1":
-			ajusta_modelo()
+			modelo = ajusta_modelo()
 			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "2":
-			escolha_herois = coleta_times()
+			times = coleta_times()
+			faz_predicao(times, modelo)
 			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "3":
-			print(nomes_herois)
+			print( faz_predicao(times, modelo) )
 			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "4":
 			break
