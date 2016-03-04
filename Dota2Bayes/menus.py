@@ -86,7 +86,7 @@ def ajusta_modelo():
 	modelo.fit( dados[colunas_herois], dados["radiant_win"])
 	estimativa = modelo.predict( dados[colunas_herois] )
 	taxa = round( 100 * sum(estimativa == dados["radiant_win"]) / dados.shape[0] , 2)
-	print("\n O modelo está ajustado.\n O modelo possui uma taxa de " + str(taxa) + " porcento de acerto.\n\n")
+	print("\n O modelo está ajustado.\n O modelo possui uma taxa de " + str(taxa) + "%" + " de acerto.\n\n")
 
 	return modelo
 
@@ -108,10 +108,10 @@ def faz_predicao(times, modelo):
 
 	if predicao:
 		proba = round( 100 * modelo.predict_proba( partida )[0][1] , 2)
-		print(colored(" Vitória do time radiant com " + str(proba) + " de chance de vitória", "green") )
+		print(colored(" Vitória do time RADIANT com " + str(proba) + " de chance.", "green") )
 	else:
 		proba = round( 100 * modelo.predict_proba( partida )[0][0] , 2)
-		print(colored(" Vitória do time dire com " + str(proba) + "%" + " de chance de vitória", "red") )
+		print(colored(" Vitória do time DIRE com " + str(proba) + "%" + " de chance.", "red") )
 
 	return None
 
@@ -137,6 +137,7 @@ def mostra_times( times ):
 	system("clear")
 	print()
 	mostra_time( 'radiant' , times['radiant'])
+	print()
 	mostra_time( 'dire' , times['dire'])
 	print()
 
