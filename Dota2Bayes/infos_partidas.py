@@ -28,7 +28,7 @@ class infos_partidas():
 
     #### FUNÇÃO QUE BUSCA AS LIGAS E TORNEIOS ####
     def faz_tabela_ligas(self):
-        tabela = api.get_league_listing():
+        tabela = api.get_league_listing()
         tabela = pd.DataFrame( tabela["result"]["leagues"])
         self.tabela_ligas = tabela
         return None
