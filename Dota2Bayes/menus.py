@@ -102,22 +102,18 @@ def faz_predicao(times, modelo):
 			else:
 				colunas["DH_"+ str(HEROIS['id'][HEROIS["heroi"]==heroi].values[0]) ] = [1]
 
-	partida = pd.DataFrame( columns = faz_colunas_herois() )
-	partida = partida.append( pd.DataFrame( colunas ) )
-	partida = partida.fillna(0)
-
+	partida = pd.DataFrame( columns = faz_colunas_herois() ).append( pd.DataFrame( colunas ) ).fillna(0)
+	
 	predicao = modelo.predict(partida)[0]
 
 	if predicao:
 		proba = round( 100 * modelo.predict_proba( partida )[0][1] , 2)
-		print(colored(" Vitória do time RADIANT com " + str(proba) + " de chance de vitória", "green") )
+		print(colored(" Vitória do time radiant com " + str(proba) + " de chance de vitória", "green") )
 	else:
 		proba = round( 100 * modelo.predict_proba( partida )[0][0] , 2)
-		print(colored(" Vitória do time DIRE com " + str(proba) + "%" + " de chance de vitória", "red") )
+		print(colored(" Vitória do time dire com " + str(proba) + "%" + " de chance de vitória", "red") )
 
-	print(predicao)
 	return None
-
 
 def mostra_time(time, herois):
 	
@@ -125,12 +121,12 @@ def mostra_time(time, herois):
 	tamanho = 19
 
 	if time.lower() == "radiant":
-		print(colored( "RADIANT".center(tamanho), "green"))
+		print(colored( "radiant".upper().center(tamanho), "green"))
 		for l in linhas:
 			print( colored( l, "green") )
 
 	if time.lower() == "dire":
-		print( colored( "DIRE".center(tamanho), "red" ) )
+		print( colored( "dire".upper().center(tamanho), "red" ) )
 		for l in linhas:
 			print( colored(l, "red") )
 
@@ -138,22 +134,24 @@ def mostra_time(time, herois):
 
 def mostra_times( times ):
 
+	system("clear")
 	print()
-	for time in times.keys():
-		mostra_time( time , times[time])
-		print()
+	mostra_time( 'radiant' , times['radiant'])
+	mostra_time( 'dire' , times['dire'])
+	print()
 
 	return None
 
-def coleta_time(time):
+def coleta_time(time, herois):
 
 	cor = "green" if time.lower()=="radiant" else "red"
 
-	herois = []
-	for i in range(1,6):
+	escolhidos = len(herois)
+
+	for i in range(escolhidos+1,6):
 		heroi = ""
 		while ( (heroi not in set(HEROIS["heroi"]) ) or (heroi in herois) ): 
-			heroi = input(colored( "Entre com o " + str(i) + "o Heroi do time " + time + ": " , cor ) )
+			heroi = input(colored( "Entre com o " + str(i) + "o Heroi do time " + time.upper() + ": " , cor ) )
 			if heroi == '':
 				herois.sort()
 				return herois
@@ -161,12 +159,20 @@ def coleta_time(time):
 	herois.sort()
 	return herois
 
-def coleta_times():
+def coleta_times(times):
 	
+	herois_radiant = times["radiant"]
+	herois_dire = times["dire"]
+
+	if len(herois_radiant) > 0 or len(herois_dire) > 0:
+		if input(" Deseja limpar os herois já selecionados anteriormente? [S/n]").lower() == "s":
+			herois_radiant = []
+			herois_dire = []
+
 	system("clear")
-	herois_radiant = coleta_time("RADIANT")
+	herois_radiant = coleta_time("radiant", herois_radiant)
 	print()
-	herois_dire = coleta_time("DIRE")
+	herois_dire = coleta_time("dire", herois_dire)
 	times = {"radiant":herois_radiant, "dire":herois_dire}
 	mostra_times( times )
 

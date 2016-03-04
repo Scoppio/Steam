@@ -6,6 +6,7 @@ import pandas as pd
 def main(tamanho=60):
 
 	abertura(tamanho)
+	times={"radiant":[], "dire":[]}
 	
 	while True:
 		escolha = escolha_menu()
@@ -13,7 +14,7 @@ def main(tamanho=60):
 			modelo = ajusta_modelo()
 			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "2":
-			times = coleta_times()
+			times = coleta_times(times)
 			faz_predicao(times, modelo)
 			input(" Aperte 'ENTER' para retornar ")
 		if escolha == "3":
