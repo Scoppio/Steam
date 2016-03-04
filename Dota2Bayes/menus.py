@@ -3,6 +3,8 @@
 from os import system
 from termcolor import colored
 import pandas as pd
+from sklearn.naive_bayes import BernoulliNB
+
 
 def print_dota2bayes(tamanho=60):
 
@@ -34,11 +36,9 @@ def mostra_menu(tamanho = 60):
 	print()
 	print(" MENU DE OPÇÕES ".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
-	print("|     VISUALIZAR HEROIS     |  1  |".center(tamanho))
+	print("|       AJUSTAR MODELO      |  1  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
 	print("|    PREVISÃO DE PARTIDAS   |  2  |".center(tamanho))
-	print("+---------------------------+-----+".center(tamanho))
-	print("|      VERIFICAR HEROIS     |  3  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
 	print("|            SAIR           |  4  |".center(tamanho))
 	print("+---------------------------+-----+".center(tamanho))
@@ -60,16 +60,30 @@ def linhas_herois(herois):
 	linhas = [ linha_heroi(h, (i+1) ) for i,h in enumerate(herois) ]	
 	return linhas
 
-def mostra_tabela_herois(base_herois):
+def importa_base():
 	
-	print(" +---------------------------+")
-	print(" | " + "ID".center(3) + " | " + "HEROI".center(19) + " |")
-	print(" +---------------------------+")
+	path = input(" Entre com o endereço da base de treinamento: ")
+	print("\n Impotando base de treinamento...")
+	dados = pd.DataFrame.from_csv(path)
+	return dados
 
-	for h in range(base_herois.shape[0]):
-		print(" | " + str(base_herois.loc[h]["id"]).rjust(3) + " | " + str(base_herois.loc[h]["heroi"]).center(19) + " |" )
-	
-	print(" +---------------------------+")
+def faz_colunas_herois():
+	colunas = []
+	for h in HEROIS["id"]:
+		colunas.append("RH_"+ str(h))
+		colunas.append("DH_"+ str(h))
+	return colunas
+
+def ajusta_modelo():
+
+	dados = importa_base()
+	colunas_herois = faz_colunas_herois()
+	modelo = BernoulliNB()
+	modelo.fit( dados[colunas_herois], dados["radiant_win"])
+	estimativa = modelo.predict( dados[colunas_herois] )
+	print(" O modelo está ajusatado.\n"+
+	 " O mo possui uma taxa de " + str( 100 * sum(estimativa == dados["radiant_win"]) / dados.shape[0]  ), "porcento de acerto.")
+	return modelo
 
 def mostra_time(time, herois):
 	
@@ -89,6 +103,7 @@ def mostra_time(time, herois):
 	return None
 
 def mostra_times( times ):
+
 	print()
 	for time in times.keys():
 		mostra_time( time , times[time])
@@ -96,14 +111,14 @@ def mostra_times( times ):
 
 	return None
 
-def coleta_time(tabela_herois,time):
+def coleta_time(time):
 
 	cor = "green" if time.lower()=="radiant" else "red"
 
 	herois = []
 	for i in range(1,6):
 		heroi = ""
-		while ( (heroi not in set(tabela_herois["heroi"]) ) or (heroi in herois) ): 
+		while ( (heroi not in set(HEROIS["heroi"]) ) or (heroi in herois) ): 
 			heroi = input(colored( "Entre com o " + str(i) + "o Heroi do time " + time + ": " , cor ) )
 			if heroi == '':
 				herois.sort()
@@ -112,12 +127,18 @@ def coleta_time(tabela_herois,time):
 	herois.sort()
 	return herois
 
-def coleta_times(tabela_herois):
+def coleta_times():
 	
 	system("clear")
-	herois_radiant = coleta_time(tabela_herois, "RADIANT")
+	herois_radiant = coleta_time("RADIANT")
 	print()
-	herois_dire = coleta_time(tabela_herois, "DIRE")
+	herois_dire = coleta_time("DIRE")
+
+
 	times = {"radiant":herois_radiant, "dire":herois_dire}
 	mostra_times( times )
 	return times
+
+###########################################################################
+
+HEROIS = pd.DataFrame.from_csv("Herois.csv")
