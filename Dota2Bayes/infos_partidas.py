@@ -16,15 +16,26 @@ class infos_partidas():
         self.info_heroi = info_heroi
         self.game_mode = game_mode
         self.skill = skill
-        self.herois = self.tabela_herois()
+        self.herois = self.faz_tabela_herois()
         self.colunas = self.faz_todas_colunas()
         self.dados = pd.DataFrame()
 
     #### FUNCAO QUE BUSCA OS HEROIS ####
-    def tabela_herois(self):
+    def faz_tabela_herois(self):
         herois = pd.DataFrame.from_dict(api.get_heroes()["result"]["heroes"])
         herois.columns = ["id","heroi", "nome" ]
         return herois
+
+    #### FUNÇÃO QUE BUSCA AS LIGAS E TORNEIOS ####
+    def faz_tabela_ligas(self):
+        tabela = api.get_league_listing():
+        tabela = pd.DataFrame( tabela["result"]["leagues"])
+        self.tabela_ligas = tabela
+        return None
+
+    def id_liga(self, nome_liga):
+        return None
+
 
      #### CRIA AS COLUNAS DESEJADAS PARA BASE DE DADOS ####
     def faz_colunas_partida(self):
