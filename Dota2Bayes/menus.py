@@ -57,7 +57,7 @@ def linha_heroi(heroi, i_heroi):
 
 def linhas_herois(herois):
 	
-	linhas = [ linha_heroi(h, i+i) for i,h in enumerate(herois) ]	
+	linhas = [ linha_heroi(h, (i+1) ) for i,h in enumerate(herois) ]	
 	return linhas
 
 def mostra_tabela_herois(base_herois):
@@ -67,24 +67,32 @@ def mostra_tabela_herois(base_herois):
 	print(" +---------------------------+")
 
 	for h in range(base_herois.shape[0]):
-		print(" | " + str(herois.loc[h]["id"]).rjust(3) + " | " + str(herois.loc[h]["heroi"]).center(19) + " |" )
+		print(" | " + str(base_herois.loc[h]["id"]).rjust(3) + " | " + str(base_herois.loc[h]["heroi"]).center(19) + " |" )
 	
 	print(" +---------------------------+")
 
 def mostra_time(time, herois):
 	
 	linhas = linhas_herois(herois)
-	tamanho = len( linhas[0] )
+	tamanho = 19
 
 	if time.lower() == "radiant":
 		print(colored( "RADIANT".center(tamanho), "green"))
-		for l in linhas_herois:
+		for l in linhas:
 			print( colored( l, "green") )
 
 	if time.lower() == "dire":
 		print( colored( "DIRE".center(tamanho), "red" ) )
-		for l in linhas_herois:
+		for l in linhas:
 			print( colored(l, "red") )
+
+	return None
+
+def mostra_times( times ):
+	print()
+	for time in times.keys():
+		mostra_time( time , times[time])
+		print()
 
 	return None
 
@@ -94,13 +102,12 @@ def coleta_time(tabela_herois,time):
 
 	herois = []
 	for i in range(1,6):
-		heroi = 150
-		while (not (tabela_herois["id"].min() <= heroi <= tabela_herois["id"].max())) or (heroi in herois): 
+		heroi = ""
+		while ( (heroi not in set(tabela_herois["heroi"]) ) or (heroi in herois) ): 
 			heroi = input(colored( "Entre com o " + str(i) + "o Heroi do time " + time + ": " , cor ) )
 			if heroi == '':
 				herois.sort()
 				return herois
-			heroi = int(heroi)
 		herois.append( heroi )
 	herois.sort()
 	return herois
@@ -111,5 +118,6 @@ def coleta_times(tabela_herois):
 	herois_radiant = coleta_time(tabela_herois, "RADIANT")
 	print()
 	herois_dire = coleta_time(tabela_herois, "DIRE")
-	herois = {"radiant":herois_radiant, "dire":herois_dire}
-	return herois
+	times = {"radiant":herois_radiant, "dire":herois_dire}
+	mostra_times( times )
+	return times
