@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python  
 
 #### IMPORTA TODAS BIBLIOTECAS NECESSÁRIAS ###
 import pandas as pd
@@ -132,9 +132,6 @@ class infos_partidas():
 
         ## SUBSTIRUI NA`s ##
         dados[self.colunas_herois] = dados[self.colunas_herois].fillna(0)
-
-        ## REMOVE PARTIDAS COM POUCA DURAÇÃO ##
-        dados = dados[ dados["tempo"]>=15 ]
 
         print(" Processo de arrumar os dados finalizado...")
 
