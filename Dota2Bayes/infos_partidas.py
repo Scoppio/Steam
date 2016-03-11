@@ -114,6 +114,7 @@ class infos_partidas():
 
         if leaver>0:
             return pd.DataFrame()
+            
         else:
             return pd.DataFrame.from_dict(info)
 
