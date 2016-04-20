@@ -1,0 +1,77 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   taisesantiago@gmail.com
+%   Modelo para artigos em Português
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{chngpage}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{indentfirst}
+\usepackage[brazil]{varioref}
+\usepackage[english,brazil]{babel}
+\usepackage[latin1]{inputenc}
+\geometry{a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage[dvips]{color}
+\usepackage{setspace}
+
+
+\graphicspath{{figuras/}}
+\setstretch{1.5}
+
+%%%%%%%%%%Definições Teoremas %%%%%%%%%%%%%%%%%%%
+
+ \newtheorem{teo}{Teorema}%[subsection]
+ \newtheorem{cor}[teo]{Corolário}
+ \newtheorem{lem}[teo]{Lema}
+ \newtheorem{prop}[teo]{Proposição}
+ \newtheorem{defn}[teo]{Definição}
+ \newtheorem{nota}[teo]{Nota}
+ \newtheorem{obs}[teo]{Observação}
+ \numberwithin{equation}{subsection}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\title{
+	\begin{figure}[!h]
+		\centering
+    	\includegraphics[scale=1]{unesp3.jpg}
+       	\label{figRotulo}
+	\end{figure}
+	Predição de Partidas de Dota2 via Aprendizado de Máquina
+	\date{}
+	}
+\author{Teodoro Balbino Calvo}
+
+\maketitle
+
+\thispagestyle{empty}
+
+\vfill
+\hfill
+\begin{minipage}{7cm}
+
+Projeto para Trabalho de Conclusão de Curso apresentado ao Curso de Graduação em Estatística da FCT/Unesp para aproveitamento na disciplina Trabalho de Conclusão de Curso.
+Orientador: Prof. Dr. Manoel Ivanildo Silvestre Bezerra
+	
+\end{minipage}
+
+
+\vfill
+\centering
+\begin{minipage}[c][4cm][c]{7cm}
+	\centering
+	Presidente Prudente \\ 2016
+\end{minipage}
+
+\pagebreak
+
+
+\end{document}

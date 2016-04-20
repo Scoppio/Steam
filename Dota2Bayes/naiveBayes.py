@@ -9,7 +9,7 @@ class naiveBayes():
 
 	def fdpBernoulli(self, x ,p):
 
-		fdp = ( p**x ) *( (1-p) ** (1-x) )
+		fdp = ( p ** x ) * ( (1-p) ** (1-x) )
 		return fdp
 
 	def fdpNormal(self, x, media, variancia):
@@ -39,18 +39,6 @@ class naiveBayes():
 			estimativa.index = ["geral"] + self.classe
 			return estimativa
 
-	def faz_X_N(self, linha ):
-
-		hero_1 = list( linha[linha == 1].index )
-		if 'modo_jogo' in hero_1:
-			hero_1.remove('modo_jogo')
-		X_N = []
-		for h in hero_1:
-			X_N.append( h + "_xp_per_min" )
-			X_N.append( h + "_gold_per_min" )
-
-		return linha[X_N]
-
 	def calc_prob_Bernoulli(self, classe, X):
 
 		prob = [ fdpBernoulli(X[i] , self.parametros["Media"][i][classe] ) for i in x.index]
@@ -69,12 +57,13 @@ class naiveBayes():
 		prob_X_B = { c: calc_prob_Bernoulli( c, X_B) for c in self.classe }
 		prob_X_N = { c: calc_prob_Bernoulli( c, X_N) for c in self.classe }
 
-	def ajuste(self, dados, X_B, X_N, Y):
+	def ajuste(self, X_B, X_N, Y):
 
-		self.classe = list(set(dados[Y]))
+		self.classe = list(set(Y))
+		X = X_B.append(X_N)
 
-		medias = self.estimar( dados[X_B + X_N], dados[Y], "media" )
-		variancias = self.estimar( dados[ X_N ], dados[Y], "variancia" )
+		medias = self.estimar( X, Y, "media" )
+		variancias = self.estimar( X_N, Y, "variancia" )
 
 		self.parametros = { "Media":medias  , "Variancia": variancias}
 		return None

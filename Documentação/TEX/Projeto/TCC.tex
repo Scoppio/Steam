@@ -1,0 +1,253 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\usepackage{chngpage}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{latexsym}
+\usepackage{indentfirst}
+\usepackage[brazil]{varioref}
+\usepackage[english,brazil]{babel}
+\usepackage[latin1]{inputenc}
+\geometry{a4paper,left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage[dvips]{color}
+\usepackage{setspace}
+\usepackage{url}
+
+\usepackage[font={small}]{caption}
+\graphicspath{{Imagens/}}
+\setstretch{1.5}
+
+\usepackage{apacite}
+\usepackage[round]{natbib}
+
+\newcommand*{\myproofname}{\textbf{Exemplo}:}
+\newenvironment{myproof}[1][\myproofname]{\begin{proof}[#1]\renewcommand*{\qedsymbol}{\(\blacksquare\)}}{\end{proof}}
+
+\begin{document}
+
+\section{Introdução}
+
+A indústria de jogos eletrônicos tem evoluído rapidamente, uma atividade que até pouco tempo era vista como diversão e passatempo de crianças e jovens, torna-se algo muito mais sério. O número de jogadores profissionais neste meio tem aumentado de modo visto. Tais fatos são comprovados pela crescente divulgação de torneios mundiais e grande quantidade de times profissionais participantes. Um termo que se ouve com maior frequência é ``\textit{eSports}" (Esporte Eletrônico), já o próprio nome faz referência aos jogos eletrônicos, porém apresentando-os como verdadeiro esporte que possui: seus atletas profissionais, disputas acirradas em nível mundial, equipes favoritas e uma crescente audiência. Nota-se também o aumento significativo dos valores das premiações dos campeonatos promovidos neste meio, encontrando-se na casa de milhões de dólares.
+
+Dentre a gama de jogos eletrônicos, o presente trabalho abordará o Dota2, um jogo em que duas equipes se enfrentam num campo de batalha. As equipes são formardas por 5 jogadores e cada jogador escolhe um personagem (Herói) para controlar dentre 111 disponíveis, ou seja, apenas 10 personagens participam da partida, não havendo escolhas repetidas. Cada um dos personagens possui características distintas em relação aos demais (habilidades, poderes e atributos), tornando o jogo muito diversificado. O objetivo do jogo consiste em destruir a estrutura principal da base da equipe inimiga. A equipe que realizar primeiro tal feito é considerada vencedora, não existindo tempo limite de jogo. 
+
+Atualmente o número de jogadores únicos registrados no jogo Dota2 ultrapassa 12 milhões, sendo que os picos diários de acesso são supriores a 900 mil jogadores conectados simultaneamente \citep{Dota}. Dota2 chamou a atenção do mundo quando a empresa responsável por seu desenvolvimento, \textit{Valve}, anunciou o \textit{The International} em 2011, torneio mundial possuindo o valor da premiação recorde até então, 1 milhão de dólares para equipe vencedora. Em 2015, a premiação total do \textit{The International} foi superior a 18 milhões de dólares, sendo U\$6.634.661,00 do montante total, designado para a equipe vencedora. Até a presente data não há nenhum torneio neste segmento que o supere em premiação. Ainda que Dota2 não seja o \textit{eSport} que possui maior número de campeonatos, é o jogo eletônico que possui o maior valor de premiações acumuladas, 59 milhões de dólares em 587 torneiros \citep{earning}. É mais que notório a dimensão de como \textit{eSports} se tornou algo muito sério e profissional, sendo necessário dedicação de tempo e grande investimento financeiro.
+
+Logo, equipes ao redor do mundo se preparam durante o ano, buscando sempre melhorar seu desempenho e estudando o jogo minuciosamente. A escolha dos personagens pode favorecer determinada equipe em relação à outra, ou seja, é importante levar em consideração quais personagens tem boa interação uns com os outros, como também, suas vantagens em relação aos personagens selecionados pela equipe adversária. O placar da partida apresenta quantas mortes cada equipe realizou sobre a equipe inimiga, o que é um forte indicativo de quem está mais próximo da vitória. Entretanto, não é a única medida a ser avaliada, havendo também o desenvolvimento individual dos personagens, como: ``ouro por minuto", ``experiência por minuto", ``número de mortes realizadas", ``número de mortes sofridas", dentre outras. Nota-se então, uma grande quantidade de dados que podem ser coletados, processados e utilizados de cada partida para uma futura ou imediata tomada de decisão. Modelos estatísticos e algoritmos computacionais devem ser empregados para obtenção de informações precisas que auxiliarão desde a etapa de seleção dos personagens, como também desempenhos almejados durante a partida, sempre em busca de maximizar a probabilidade de vitória da equipe.
+
+A utilização de métodos de Aprendizado de Máquina (AM) tem permitido resolver problemas cada vez mais complexos. Embora sua fundamentação teórica não seja tão recente, o avanço da tecnologia permitiu tanto sua aplicação quanto escalabilidade \citep{IA}. O presente trabalho abordará duas técnicas de AM: \textit{Naive Bayes} (NB) e \textit{Tree Augmented Naive Bayes} (TAN) \citep{bayesnet}. Ambas contempladas pela teoria de Redes Bayesianas para classificação, que a partir de variáveis auxiliares atualiza a probabilidade de determinada classe (categoria, nível, evento) da variável resposta por meio do Teorema de Bayes. Tais técnicas possuem o objetivo similar à Análise Discriminante ou Regressão Logística do ponto de vista estatístico, pretendendo-se classificar determinado objeto ou indivíduo a partir de suas características.
+
+\section{Objetivo}
+O objetivo principal do presente trabalho consiste em utilizar as técnicas de AM citadas anteriormente para classificar determinada equipe como vencedora ou perdedora, segundo variáveis que podem ser observadas do início ao final da partida.
+
+Como objetivo secundário, utilizando os modelos desenvolvidos, será criada uma interface para qualquer usuário inserir dados, fornecendo em tempo real respostas para alguns questionamentos levantados por entusiastas, jogadores e treinadores:
+\begin{itemize}
+	\item Qual conjunto de personagens tem vantagem sobre outro conjunto?
+	\item Quais personagens são melhores caso a partida se alongue muito?
+	\item Qual é o rendimento ideal para um determinado personagem (ouro e experiência por minuto)?
+	\item Qual dentre os jogadores da minha equipe deve melhorar o desempenho durante a partida?
+	\item Em qual equipe eu deveria apostar?
+\end{itemize}
+	
+\section{Justificativa}
+Apesar da área de \textit{eSports} ser crescente como foi apresentado anteriormente, os trabalhos encontrados que abordam o tema utilizam apenas uma variável para predição de partidas de Dota2: ``Seleção de personagem". Ou seja, dentre todas as informações que podem ser utilizadas, apenas uma tem sido levado em conta, quais personagens participam da partida. \citep{logdota}
+
+Acredita-se que o incremento de outras variáveis aumentarão as taxas de assertividade, fornecendo maior convicção para tomada de decisão. Possibilita-se então a utilização de dados concretos e análises mais precisas para: corrigir erros, aprimorar jogadas, analisar seus jogadores, identificar melhorias a serem realizadas, oportunidades que devem ser aproveitadas, bem como uma infinidade de ações durante a partida, que consequentemente melhorarão o desempenho da equipe.
+
+Após a conclusão do trabalho final, caso os resultados atinjam às expectativas, o mesmo poderá ser utilizado para outros jogos eletrônicos que estejam no cenário competitivo e possuam seus dados de forma aberta bem como ocorre em Dota2.
+
+O presente trabalho busca desde já contribuir com a sociedade científica onde o autor está inserido, apresentando uma técnica que dificilmente é abordada na graduação em Estatística. Com isso, aumentar o leque de métodos e técnicas que podem ser adotados para soluções de problemas na área.
+
+\section{Metodologia}
+Para desenvolvimento do trabalho o mais corretamente possível, tanto pelo ponto de vista da Estatística quanto computacional, serão definidas algumas etapas a serem seguidas:
+
+A coleta de dados é uma das etapas de maior complexidade. Será utilizada uma API (\textit{Application Programming Interface}) fornecida pela empresa \textit{Valve}, que possibilita a coleta de partidas públicas armazenadas em seus servidores. A coleta será feita em tempo real e de maneira sistemática, a cada 10 minutos um algoritmo busca pelas 100 últimas partidas encerradas, armazenando-as em um banco de dados local. Em coletas preliminares, cerca de 8 mil partidas foram coletadas por dia, assim, ao final do trabalho o número de observações chegará na casa dos milhões, visto que esta etapa será realizada ao longo de todo trabalho. Pela busca de partidas em nível profissional, serão coletadas apenas as partidas dos jogadores classificados como \textit{``very high--level"} (``nível muito alto", índice definido pelo próprio jogo), o que representa 11,9\% dentre todos jogadores, sendo estes os que possuem os melhores desempenhos em Dota2. Partidas abaixo deste nível podem comprometar a qualidade do dados para realização do estudo, devido sua heterogeneidade.
+
+A construção da base de dados é etapa intrínseca à anterior. A base de dados deve ser consistente e alinhada com o propósito do estudo. Definindo assim, as variáveis que irão compô-la desde o início da coleta. As seguintes variáveis são necessárias para o estudo: equipe vencedora, personagens em jogo e a qual equipe pertence, experiencia por minuto e ouro por minuto de cada personagem, tempo de duração da partida, ID da partida.
+
+Na etapa da modelagem, é conveniente que seja proposto um modelo teórico baseado nas técnicas propostas, facilitando o entendimento de como será realizado em vias computacionais. Nesta etapa será tomado todo cuidado necessário para respeitar notações matemáticas, bem como propriedades da teoria de probabilidade. É possível apresentar modelos na forma analítica para as duas técnicas que serão utlizadas, diferentemente de outras técnicas de AM, em que são etapas computacionais e não uma fórmula fechada.
+
+A implementação computacional, é considerada como mais extensa e intensiva etapa. Para a técnica NB, a linguagem de programação \textit{Python} fornece o método implementado em uma de suas bibliotecas (\textit{scikit-learn}), que será muito útil. Porém, para a técnia TAN, não existe pacote ou \textit{software} estatístico que a contenha implementada da meneira que se pretende aplicá-la, logo, será necessário todo seu desenvolvimento pelo próprio autor. Faz parte do processo de modelagem a realização de validações dos modelos propostos, verificando suas performances segundo métricas, partições e amostragens da base de dados que ainda serão estudadas. Toda etapa computacional será realizada na linguagem de programação \textit{Python} com auxilio de suas bibliotecas (\textit{pandas}, \textit{numpy}, \textit{scikit-learn}). 
+
+Para ilustrar como aplica a técnica NB, é apresentado seguir um exemplo fictício detalhando todos os passos para a resolução do problema. Além da formulação teórica do ponto de vista probabilístico, há também um modelo realizado utilizando representação de grafos, auxiliando no entendimento da técnica.
+
+\begin{myproof}
+Um pesquisador pretende realizar um diagnóstico de diabetes em um de seus pacientes sem consultar exames de laboratório. Para isso, ele utilizará a base de dados de seus pacientes históricos, onde há os respectivos diagnóstico e informações pessoais. A base de dados do pesquisador é apresentada pela tabela 1.
+
+\begin{table}[!htp]
+\label{tabela1}
+\begin{center}
+\caption{Base de dados de pacientes}
+\begin{tabular}{c c c c c}
+	\hline
+	\centering 
+	Paciente & Diabetes ($Y$) & Histórico & Acima do & Atividade \\
+\hspace{1cm} & \hspace{1cm} & Familiar ($X_1$) & Peso ($X_2$) & Física ($X_3$) \\
+	\hline
+	\centering 
+	1 & 1 & 1 & 1 & 1 \\
+	\centering 
+	2 & 1 & 1 & 1 & 0 \\
+	\centering 
+	3 & 1 & 0 & 1 & 0 \\
+	\centering
+	4 & 1 & 1 & 0 & 0 \\
+	\centering
+	5 & 0 & 1 & 0 & 1 \\
+	\centering
+	6 & 0 & 0 & 1 & 1 \\
+	\centering
+	7 & 0 & 0 & 0 & 0 \\
+	\hline
+
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{figure}[!h]
+		\centering
+    	\caption{Esquema de grafos da técnica Naive Bayes}
+		\includegraphics[scale=1]{NB_2.png}
+    	\label{naive_exemplo}
+\end{figure}
+\begin{footnotesize}
+\begin{center}
+Fonte: Produzida pelo autor
+\end{center}
+\end{footnotesize}
+
+Ao interpretar o problema do pesquisador, define-se a variável de interesse (resposta) como sendo ``Diabetes", logo, todas outras variáveis do conjunto de dados são consideradas auxiliares (regressoras, explicativas, etc). Desta forma, a figura 1 representa a modelagem via NB por meio de grafos, em que todas variaveis auxiliares são independentes umas das outras ao serem condicionadas a $Y$ (resposta). Isto é, todas as variáveis auxiliares são independentes entre sí dado a ocorrência de determinado nível (classe) na variável resposta, propriedade conhecida como independência condicional em probabilidade.
+
+Ao analisar a tabela 1, é fácil verificar que a probabilidade de uma pessoa qualquer ser diagnosticada com diabetes é 4/7, isto é, $p(Y=1)= 4 / 7$. É desejável atualizar essa probabilidade condicionando a ocorrência de $y$ à $ \textbf{x}=(x_1 , x_2, x_3)^t $. Em outras palavras, as variáveis auxiliares fornecerão mais informação para aumentar a certeza do diagnóstico. O Teorema de Bayes pode ser utilizado para esta tarefa:
+
+\begin{equation}
+p( y | \textbf{x}) = \dfrac{p(y) \prod\limits_{i=1}^{3} p( x_i | y )}{p(\textbf{x})}
+\label{teoremabayes}
+\end{equation} 
+
+Ao utilizar o método NB, pressupõem-se que as variáveis auxiliares são independentes dado uma classe específica de $Y$, pode-se então realizar o seguinte passo:
+
+\begin{center}
+$ p(x_1, x_2, x_3 | y) = p(x_1 | y)p(x_2| y )p(x_3 | y) = \prod\limits_{i=1}^{3}p(x_i|y)  $
+\end{center}
+
+O critério de classificação criado utiliza uma razão de chances para decidir se o diagnóstico será ``diabetes positiva" ou não. Quando esta razão de chances for maior que 1, classifica-se como diabético:
+
+\begin{center}
+$\dfrac{p( Y=1 | x_1, x_2, x_3)}{p( Y=0 | x_1, x_2, x_3)}=
+\dfrac{p(Y=1) \prod\limits_{i=1}^{3} p( x_i | Y=1 )}{p(Y=0) \prod\limits_{i=1}^{3} p(x_i | Y=0 )}\geqslant 1 \Rightarrow $ Diabetes
+\end{center}
+
+Tal artifício nos livra da necessidade do cálculo de $p(x_1, x_2, x_3)$, tendo em vista que não seria trivial definir a distribuição conjunta de tais variáveis, uma vez que as mesmas não são independentes entre sí.
+
+Devido a forma como as variáveis foram definidas (binárias), é razoável atribuir a distribuição de probabilidade Bernoulli a cada uma delas. Porém para cada $x_i | y$ tem-se uma distribuição distinta, devido a isso, a notação fica mais carregada que o usual:
+
+\begin{center}
+$
+p(X_i = x_i |Y=y ) = {\theta_{iy}}^{x_i}(1-\theta_{iy})^{1 - x_i} $, para  $ x_i \in \{0,1\} $ ; $ 0< \theta_{iy} < 1
+$
+\end{center}
+
+Onde $\theta_{iy}$ é o parâmetro da distribuição da i-ésima variável, dado uma classe específica de $Y$. Ou seja, a distribuição de cada variável auxiliar se altera dado a ocorrência de $Y$.
+
+Estima-se $\theta_{iy}$ por meio de $\hat{\theta}_{iy}$, definido da seguinte forma:
+\begin{center}
+$\hat{\theta}_{iy} = \dfrac{\sum\limits_{j=1}^{n_y} x_{ij}}{n_y} $
+\end{center}
+
+Em que $n_y$ é o tamanho da amostra na classe $y$, isto é, quando $y$ ocorre. É possível agora estimar todos os parâmetros necessários e apresentar o modelo ajustado. A seguir são apresentadas as estimativas dos parâmetros que irão compor o modelo.
+\\
+
+$ \hat{\theta}_1 = \left\{ \begin{array}{ll}
+1/3 & \mbox{para $y = 0$};\\
+3/4 & \mbox{para $y = 1$}.\end{array} \right.
+; \hspace{0.5cm}
+\hat{\theta}_2 = \left\{ \begin{array}{ll}
+1/3 & \mbox{para $y = 0$};\\
+3/4 & \mbox{para $y = 1$}.\end{array} \right.
+; \hspace{0.5cm}
+\hat{\theta}_3 = \left\{ \begin{array}{ll}
+2/3 & \mbox{para $y = 0$};\\
+1/4 & \mbox{para $y = 1$}.\end{array} \right.$
+\\
+
+É definido o seguinte modelo para o diagnóstico de diabetes:
+\begin{equation}
+\dfrac{p( Y=1 | x_1, x_2, x_3)}{p( Y=0 | x_1, x_2, x_3)}=\dfrac{(4/7) (3/4)^{x_1}(1/4)^{1-x_1} (3/4)^{x_2}(1/4)^{1-x_2} {(1/4)^{x_3}(3/4)^{1-x_3}}} {(3/7) (1/3)^{x_1}(2/3)^{1-x_1} (1/3)^{x_2}(2/3)^{1-x_2} {(2/3)^{x_3}(1/3)^{1-x_3}}}
+\label{modelo1}
+\end{equation}
+
+Vale lembrar que ao realizar predições, caso (\ref{modelo1}) resulte um valor maior que 1, classifica-se o paciente como diabético. Para um caso em que o paciente possui histórico familiar, não está acima do peso e não pratica atividade física, tem-se $\textbf{x}=(1,0,0)^t$ e substituindo os valores em (\ref{modelo1}):
+
+\begin{center}
+$\dfrac{p( Y=1 | \textbf{x})}{p( Y=0 | \textbf{x})}= \dfrac{0.08}{0.03}=2.67
+\geqslant 1 \Rightarrow $ Diabetes
+\end{center}
+
+Portanto, o paciente é diagnosticado como diabético. O pesquisador pode recorrer a (\ref{modelo1}) sempre que não conseguir realizar o exame de laboratório, utilizando apenas as variáveis fornecidas pelo paciente.
+\end{myproof}
+
+Para aplicação da técnica NB na perspectiva de Dota2, as variáveis utilizadas para modelagem são referentes a presença ou não dos personagens na partida. Desta forma, cada $x_i$ representa a presença ou não do i-ésimo personagem.
+
+Embora não seja apresentado um exemplo de como a técnica TAN é aplicada, a mesma é considerada como uma expansão de NB. Uma vez que NB supõem independência entre todas as variáveis dado $y$, já para TAN, pode-se supor que uma (ou mais) variável é dependente de uma e somente uma outra variável \citep{IA}.
+
+\pagebreak
+
+\section{Cronograma}
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+	\hline
+	\centering 
+	Etapa  & Abr. & Maio & Jun. & Jul. & Ago. & Set. & Out.& Nov. & Dez. \\
+	\hline
+	\centering
+	1. & X & X & X & X & X & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} &
+	\\ 
+	\hline
+	\centering
+	2. & X & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} &
+	\\
+	\hline
+	\centering
+	3. & X & X & X & X & X & X & X & X &
+	\\
+	\hline
+	\centering
+	4. & X & X & X & X & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm}
+	\\
+	\hline
+	\centering
+	5. &   \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & X & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} &
+	\\
+	\hline
+	\centering
+	6. & \hspace{1cm} & \hspace{1cm} & X & X & X & X & X & \hspace{1cm} &
+	\\
+	\hline
+	\centering
+	7. & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & \hspace{1cm} & X & X
+	\\
+	\hline
+\end{tabular}
+
+\begin{enumerate}
+	\item Levantamento Bibliográfico
+	\item Estruturação da Base de Dados
+	\item Coleta de Dados
+	\item Modelagem Naive Bayes
+	\item Entrega Relatório Parcial
+	\item Modelagem Tree Augmented Naive Bayes
+	\item Entrega Relatório Final
+\end{enumerate}
+
+\pagebreak
+
+\nocite{*}
+\bibliographystyle{apa}
+\renewcommand\refname{Bibliografia}
+\bibliography{refs}
+
+\end{document}

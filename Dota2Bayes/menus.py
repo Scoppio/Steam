@@ -76,6 +76,13 @@ def faz_colunas_herois():
 		colunas.append("DH_"+ str(h))
 	return colunas
 
+def faz_colunas_infos( colunas_herois, infos=[]):
+	colunas = []
+	for h in colunas_herois:
+		for info in infos:
+			colunas.append(h+"_"+info)
+	return colunas
+
 def ajusta_modelo():
 
 	system("clear")

@@ -1,0 +1,69 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\astroncite{Bolfarine}{2010}]{bolfa}
+Bolfarine, H. (2010).
+\newblock {\em Introdu\c{c}\~{a}o \`{a} infer\^{e}ncia estat\'{i}stica}.
+\newblock SBM, Rio de Janeiro, 2a edi\c{c}\~{a}o.
+
+\bibitem[\protect\astroncite{Conley}{2013}]{logdota}
+Conley, K. (2013).
+\newblock How {D}oes {H}e {S}aw {M}e? {A} {R}ecommendation {E}ngine for
+  {P}icking {H}eroes in {D}ota 2.
+\newblock Technical report, Stanford University.
+
+\bibitem[\protect\astroncite{Dota2}{2015}]{TI2015}
+Dota2 (2015).
+\newblock The {I}nternational 2015.
+\newblock Dispon\'{i}vel em: \url{
+  <http://www.dota2.com/international/overview>}. \'{U}ltimo Acesso: 12 de
+  abril de 2016.
+
+\bibitem[\protect\astroncite{Dota2}{2016}]{Dota}
+Dota2 (2016).
+\newblock Dispon\'{i}vel em: \url{ <http://www.dota2.com>}. \'{U}ltimo Acesso:
+  12 de abril de 2016.
+
+\bibitem[\protect\astroncite{Downey}{2012}]{thinkbayes}
+Downey, A.~B. (2012).
+\newblock {\em Think {B}ayes: {B}ayesian {S}tatistics {M}ade {S}imple}.
+\newblock Green Tea Press.
+
+\bibitem[\protect\astroncite{EsportsEarnings}{2016}]{earning}
+EsportsEarnings (2016).
+\newblock Dispon\'{i}vel em: \url{ <http://www.esportsearnings.com>}.
+  \'{U}ltimo Acesso: 12 de abril de 2016.
+
+\bibitem[\protect\astroncite{Faceki et~al.}{2015}]{IA}
+Faceki, K. et~al. (2015).
+\newblock {\em Intelig\^{e}ncia {A}rtificial: {U}ma {A}bordagem de
+  {A}prendizagem de {M}\'{a}quina}.
+\newblock LTC.
+
+\bibitem[\protect\astroncite{Friedman et~al.}{1997}]{bayesnet}
+Friedman, N. et~al. (1997).
+\newblock Bayesian network classifiers.
+\newblock {\em Machine Learning}, 29:131--163.
+
+\bibitem[\protect\astroncite{McKinney}{2013}]{pandas}
+McKinney, W. (2013).
+\newblock {\em Python for {D}ata {A}nalysis}.
+\newblock O'Reilly Media Inc.
+
+\bibitem[\protect\astroncite{Sheldon}{2010}]{sheldon}
+Sheldon, R. (2010).
+\newblock {\em Probabilidade: Um curso moderno com aplica\c{c}\~{o}es}.
+\newblock Bookman, Porto Alegre, 8a edi\c{c}\~{a}o.
+\newblock Tradu\c{c}\~{a}o: Alberto Resende De Conti.
+
+\bibitem[\protect\astroncite{Summerfield}{2012}]{python}
+Summerfield, M. (2012).
+\newblock {\em {P}rograma\c{c}\~{a}o em {P}ython 3: uma introdu\c{c}\~{a}o
+  completa \`{a} linguagem {P}ython}.
+\newblock Alta Books, Rio de Janeiro.
+
+\bibitem[\protect\astroncite{Zhang}{2004}]{naivebayes}
+Zhang, H. (2004).
+\newblock {T}he {O}ptimality of {N}aive {B}ayes.
+\newblock {\em University of New Brunswick}.
+
+\end{thebibliography}
